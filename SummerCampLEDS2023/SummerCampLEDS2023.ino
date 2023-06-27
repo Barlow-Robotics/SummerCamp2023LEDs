@@ -75,6 +75,7 @@ public:
 };
 
 Glitter theGlitter(leds, 47, 20, 0.8);
+<<<<<<< Updated upstream
 
 
 class breathe {
@@ -127,6 +128,25 @@ class breathe {
     }
 
 };
+=======
+// class breathe {
+//   private:
+//     CRGB* leds;
+//     int num_leds;
+//     int effected_leds;
+//     float fadeValue;
+
+//     struct breathedStatus {
+//       int index;
+//       int value;
+// //     }
+// //   public:
+// //     breathe(CRGB* 1, int num_leds, int effected_leds, float fadeValue) {
+// //       this->leds 1
+// //     }
+
+// // }
+>>>>>>> Stashed changes
 
 
 void setup() {
