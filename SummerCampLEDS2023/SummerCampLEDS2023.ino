@@ -83,6 +83,12 @@ class breathe {
     int num_leds;
     int effected_leds;
     float fadeValue;
+    int i;
+    int j;
+    int effectedPerSide;
+    int middle_led;
+    int changed_leds;
+    bool state;
 
   public:
     breathe(CRGB* l, int num_leds, int effected_leds, float fadeValue) {
@@ -90,10 +96,12 @@ class breathe {
       this->num_leds = num_leds;
       this->effected_leds = effected_leds;
       this->fadeValue = fadeValue;
-      int effectedPerSide = effected_leds/2;
-      int middle_led = floor(num_leds/2);
-      int changed_leds = middle_led-effected_leds, int i = changed_leds, int j = middle_led + effected_leds;
-      bool state = true; 
+      effectedPerSide = effected_leds/2;
+      middle_led = floor(num_leds/2);
+      changed_leds = middle_led-effected_leds;
+      i = changed_leds;
+      j = middle_led + effected_leds;
+      state = true; 
     }
   
 
@@ -105,26 +113,24 @@ class breathe {
         // i turns to --, j turns to --
         state = false;
       } 
-      if (i < changed_leds) // add j {
+      if (i < changed_leds) { // add j {
         state = true;
       }
-        if (state) {
-          i++;
-          j++;
-        }
-        else {
-          i--;
-          j--;
-        }
 
+      if (state) {
+        i++;
+        j++;
       }
+      else {
+        i--;
+        j--;
+      }
+}
 
       // only use effected_Leds\
       / start from middle
       // extend
       // go back; slow down as you reach the end
-
-    }
 
 };
 
