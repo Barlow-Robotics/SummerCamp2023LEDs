@@ -108,7 +108,6 @@ class breathe {
       if (i < changed_leds) // add j {
         state = true;
       }
-      if {
         if (state) {
           i++;
           j++;
@@ -117,7 +116,6 @@ class breathe {
           i--;
           j--;
         }
-      }
 
       }
 
