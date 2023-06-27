@@ -75,7 +75,7 @@ public:
 };
 
 Glitter theGlitter(leds, 47, 20, 0.8);
-<<<<<<< Updated upstream
+
 
 
 class breathe {
@@ -146,7 +146,6 @@ class breathe {
 // //     }
 
 // // }
->>>>>>> Stashed changes
 
 
 void setup() {
