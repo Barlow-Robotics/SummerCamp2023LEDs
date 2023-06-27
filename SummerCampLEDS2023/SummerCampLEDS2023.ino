@@ -77,6 +77,7 @@ public:
 Glitter theGlitter(leds, 47, 20, 0.8);
 
 
+
 class breathe {
   private:
     CRGB* leds;
@@ -133,6 +134,24 @@ class breathe {
       // go back; slow down as you reach the end
 
 };
+=======
+// class breathe {
+//   private:
+//     CRGB* leds;
+//     int num_leds;
+//     int effected_leds;
+//     float fadeValue;
+
+//     struct breathedStatus {
+//       int index;
+//       int value;
+// //     }
+// //   public:
+// //     breathe(CRGB* 1, int num_leds, int effected_leds, float fadeValue) {
+// //       this->leds 1
+// //     }
+
+// // }
 
 
 void setup() {
