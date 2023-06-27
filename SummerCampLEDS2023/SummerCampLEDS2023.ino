@@ -74,7 +74,9 @@ public:
   }
 };
 
-Glitter theGlitter(ledsi, 47, 20, 0.8);
+Glitter theGlitter(leds, 47, 20, 0.8);
+
+
 class breathe {
   private:
     CRGB* leds;
@@ -82,16 +84,51 @@ class breathe {
     int effected_leds;
     float fadeValue;
 
-    struct breathedStatus {
-      int index;
-      int value;
-    }
   public:
-    breathe(CRGB* 1, int num_leds, int effected_leds, float fadeValue) {
-      this->leds 1
+    breathe(CRGB* l, int num_leds, int effected_leds, float fadeValue) {
+      this->leds = l;
+      this->num_leds = num_leds;
+      this->effected_leds = effected_leds;
+      this->fadeValue = fadeValue;
+      int effectedPerSide = effected_leds/2;
+      int middle_led = floor(num_leds/2);
+      int changed_leds = middle_led-effected_leds, int i = changed_leds, int j = middle_led + effected_leds;
+      bool state = true; 
+    }
+  
+
+    void update() {
+      leds[i] = Black;
+      leds[j] = Black; 
+      FastLED.show();
+      if (i < middle_led) {
+        // i turns to --, j turns to --
+        state = false;
+      } 
+      if (i < changed_leds) // add j {
+        state = true;
+      }
+      else {
+        if (state) {
+          i++;
+          j++;
+        }
+        else {
+          i--;
+          j--;
+        }
+      }
+
+      }
+
+      // only use effected_Leds\
+      / start from middle
+      // extend
+      // go back; slow down as you reach the end
+
     }
 
-}
+};
 
 
 void setup() {
@@ -176,137 +213,3 @@ void loop() {
   }
 }
 
-
-
-// void loop() {
-
-//   if (Serial.available() > 0) {
-//     numRead = Serial.readBytes(buffer, 10);
-//     // currentMode = ...
-//   }
-
-//   switch (currentMode) {
-//     case REDALLIANCE:
-//       for (int i = 0; i <= round(NUM_LEDS / 2); i++) {
-//         fadeToBlackBy(leds, NUM_LEDS, 15);
-//         addGlitter(100);
-//         delay(1);
-//         leds[i % NUM_LEDS] = RedAlliance;
-//         leds[(NUM_LEDS - (i + 1)) % NUM_LEDS] = RedAlliance;
-//       }
-//       for (int i = round(NUM_LEDS / 2); i > 0; i--) {
-//         leds[(NUM_LEDS - (i + 1)) % NUM_LEDS] = Black;
-//         leds[i % NUM_LEDS] = Black;
-//         FastLED.show();
-//         delay(30);
-//         fadeToBlackBy(leds, NUM_LEDS, 10);
-//       }
-//       break;
-//     case BLUEALLIANCE:
-//       for (int i = 0; i <= round(NUM_LEDS / 2); i++) {
-//         leds[i % NUM_LEDS] = BlueAlliance;
-//         leds[(NUM_LEDS - (i + 1)) % NUM_LEDS] = BlueAlliance;
-
-//       }
-//       for (int i = round(NUM_LEDS / 2); i > 0; i--) {
-//         leds[(NUM_LEDS - (i + 1)) % NUM_LEDS] = Black;
-//         leds[i % NUM_LEDS] = Black;
-
-//       }
-//       break;
-//     case NEONGREEN:
-//       for (int i = 0; i <= round(NUM_LEDS / 2); i++) {
-//         leds[i % NUM_LEDS] = NeonGreen;
-//         leds[(NUM_LEDS - (i + 1)) % NUM_LEDS] = NeonGreen;
-//       }
-//       for (int i = round(NUM_LEDS / 2); i > 0; i--) {
-//         leds[(NUM_LEDS - (i + 1)) % NUM_LEDS] = Black;
-//         leds[i % NUM_LEDS] = Black;
-//       }
-//       break;
-//     case ISSHOOTING:
-//       leds[] = Shooting;
-//       leds = Black;
-//       break;
-
-//     case AUTO:
-//       leds[48] = Auto;
-//       leds[48] = Black;
-//       break;
-//   }
-
-//   fadeToBlackBy(leds, NUM_LEDS, 10);
-
-
-//   addGlitter(100);
-
-//   FastLED.show();
-
-//   EVERY_N_MILLISECONDS(50) {
-//     if (Serial.available() > 0) {
-//       // read the incoming byte:
-//       uint8_t incomingByte = Serial.read();
-//       if (incomingByte >= 0 && incomingByte <= 1) {  // assume that claw open 1, assume 0 is closed, 0 == false
-//         currentMode = incomingByte;
-//       }
-//     }
-//     start = (start + direction);
-//     segmentLength = segmentLength + modifier;
-//     sL2 = NUM_LEDS - segmentLength;
-//     Serial.print(segmentLength);
-//     Serial.print("  ");
-//   }
-// }
-
-//glitter effect
-// void addGlitter(fract8 chanceOfGlitter) {
-//   if (random8() < chanceOfGlitter) {
-//     int a = random16(NUM_LEDS);
-//     if (leds[a] != RedAlliance) {
-//       leds[a] += CRGB::White;
-//     }
-
-
-
-
-
-
-
-
-//CODE FROM BEFORE
-//  switch () {
-//     case redAlliance:
-
-//       //red = 1 = 2 to the power of 1
-//       for (int i = 0; i < NUM_LEDS; i++) {
-//         leds[i] = RedAlliance;
-//       }
-//       break;
-//     case blueAlliance:  //blue = 0
-//       for (int i = 0; i < NUM_LEDS; i++) {
-//         leds[i] = BlueAlliance;
-//       }
-//       break;
-//     case enabled:
-//       for (int i = 0; i < NUM_LEDS; i++) {
-//         leds[i] = Enabled;
-//       }
-//       break;
-//     case isShooting:
-//       for (int i = 0; i < NUM_LEDS; i++) {
-//         leds[i] = Shooting;
-//       }
-//       break;
-//     case _auto:
-//       for (int i = 0; i < NUM_LEDS; i++) {
-//         leds[i] = Auto;
-//       }
-//       break;
-//     default:
-//       for (int i = 0; i < NUM_LEDS; i++) {
-//         leds[i] = Enabled;
-//       }
-//   }
-//   theGlitter.Draw();
-
-//   FastLED.show();
