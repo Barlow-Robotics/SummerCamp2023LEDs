@@ -120,14 +120,14 @@ class breathe {
       }
 
       if (state) {
-        leds[lineOne] = Black;
-        leds[lineTwo] = Black; 
+        leds[lineOne] = Enabled;
+        leds[lineTwo] = Enabled; 
         lineOne++;
         lineTwo--;
       }
       else {
-        leds[lineOne] = Enabled; // fix, custom 
-        leds[lineTwo] = Enabled; 
+        leds[lineOne] = Black; // fix, custom 
+        leds[lineTwo] = Black; 
         lineOne--;
         lineTwo++;
       }
