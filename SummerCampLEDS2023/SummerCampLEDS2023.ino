@@ -110,8 +110,7 @@ class breathe {
   
 
     void update() {
-
-      FastLED.show();
+      // FastLED.show();
       if (lineOne <= lineOneToGo && lineTwo >= lineTwoToGo) {
         state = true;
       } 
@@ -119,20 +118,30 @@ class breathe {
         state = false; 
       }
 
-      if (state) {
-        leds[lineOne] = Enabled;
-        leds[lineTwo] = Enabled; 
+      if (state) { 
+        for (int i = lineOne; i <= middle_led; i++) { // down with black
+          leds[i] = Black;
+        }
+        for (int j = lineTwo; j>= middle_led; j--) {
+          leds[j] = Black;
+        }
+        leds[lineOne] = Black;
+        leds[lineTwo] = Black; 
         lineOne++;
-        lineTwo--;
-      }
+        lineTwo--;      
+        }
       else {
+        for (int i = middle_led; i > lineOne; i--) {
+          leds[i] = Black;
+        }
+        for (int j = middle_led; j < lineTwo; j++) {
+          leds[j] = Black;
+        } 
         leds[lineOne] = Black; // fix, custom 
         leds[lineTwo] = Black; 
         lineOne--;
         lineTwo++;
       }
-    
-}
     }
 
       // only use effected_Leds\
@@ -142,8 +151,7 @@ class breathe {
 
 };
 
-breathe theBreathing (leds, 47, 20, 0.8);
-breathe theBreathing (leds, NUM_LEDS, 31, 0.8);
+breathe theBreathing (leds, NUM_LEDS, 20, 0.8);
 
 
 // class breathe {
@@ -221,17 +229,13 @@ void loop() {
     for (int i = 0; i < NUM_LEDS; i++) {
       leds[i] = Enabled;
     }
-  }
-  FastLED.show();
-  
+  }  
  // theGlitter.Draw();
 
 
   EVERY_N_MILLISECONDS(50) {
     // theGlitter.Update();
     theBreathing.update();
-    // theBreathing.update();
-    breathingEnabled = false;
     // currentMode = AUTO ;
     while (Serial.available() > 0) {
       // read the incoming byte:
