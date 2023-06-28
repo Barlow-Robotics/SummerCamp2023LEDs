@@ -133,6 +133,7 @@ class breathe {
       }
     
 }
+    }
 
       // only use effected_Leds\
       / start from middle
@@ -142,6 +143,7 @@ class breathe {
 };
 
 breathe theBreathing (leds, 47, 20, 0.8);
+breathe theBreathing (leds, NUM_LEDS, 31, 0.8);
 
 
 // class breathe {
@@ -228,6 +230,7 @@ void loop() {
   EVERY_N_MILLISECONDS(50) {
     // theGlitter.Update();
     theBreathing.update();
+    breathingEnabled = false;
     // currentMode = AUTO ;
     while (Serial.available() > 0) {
       // read the incoming byte:
