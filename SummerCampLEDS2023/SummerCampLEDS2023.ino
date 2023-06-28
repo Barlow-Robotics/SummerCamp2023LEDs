@@ -230,6 +230,7 @@ void loop() {
   EVERY_N_MILLISECONDS(50) {
     // theGlitter.Update();
     theBreathing.update();
+    // theBreathing.update();
     breathingEnabled = false;
     // currentMode = AUTO ;
     while (Serial.available() > 0) {
