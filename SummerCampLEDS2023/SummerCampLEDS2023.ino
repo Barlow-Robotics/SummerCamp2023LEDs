@@ -103,47 +103,46 @@ class breathe {
       changed_leds = middle_led-effected_leds;
       lineOneToGo = changed_leds;
       lineTwoToGo = middle_led + effected_leds;
-      state = true;
+      state = true; 
       lineOne = middle_led;
       lineTwo = middle_led;
     }
- 
+  
 
     void update() {
-
-      FastLED.show();
+      // FastLED.show();
       if (lineOne <= lineOneToGo && lineTwo >= lineTwoToGo) {
         state = true;
-      }
-      if (lineOne >= middle_led && lineTwo <= middle_led) {
-        state = false;
+      } 
+      if (lineOne >= middle_led && lineTwo <= middle_led) { 
+        state = false; 
       }
 
-      if (state) {
-        leds[lineOne] = Enabled;
-        leds[lineTwo] = Enabled;
+      if (state) { 
+        for (int i = lineOne; i <= middle_led; i++) { // down with black
+          leds[i] = Black;
+        }
+        for (int j = lineTwo; j>= middle_led; j--) {
+          leds[j] = Black;
+        }
+        leds[lineOne] = Black;
+        leds[lineTwo] = Black; 
         lineOne++;
-        lineTwo--;
-      }
+        lineTwo--;      
+        }
       else {
-
-        leds[lineOne] = Black; // fix, custom
-        leds[lineTwo] = Black;
-        lineOne--;
-        lineTwo++;
-      }
-   
-}
-
+        for (int i = middle_led; i > lineOne; i--) {
+          leds[i] = Black;
+        }
+        for (int j = middle_led; j < lineTwo; j++) {
+          leds[j] = Black;
+        } 
         leds[lineOne] = Black; // fix, custom 
         leds[lineTwo] = Black; 
         lineOne--;
         lineTwo++;
       }
-    
-}
     }
-
 
       // only use effected_Leds\
       / start from middle
@@ -152,10 +151,7 @@ class breathe {
 
 };
 
-breathe theBreathing (leds, 47, 20, 0.8);
-
-breathe theBreathing (leds, NUM_LEDS, 31, 0.8);
-
+breathe theBreathing (leds, NUM_LEDS, 20, 0.8);
 
 
 // class breathe {
@@ -202,7 +198,7 @@ void loop() {
   bool blueAlliance = (currentMode & 0b00000010) == 0b00000000;
   bool enabled = (currentMode & 0b00001000) == 0b00001000;
   bool isShooting = currentMode & 0b00000001 == 0b00000001;
-  // bool (isShooting = currentMode % 2) == 1;
+  // bool (isShooting = currentMode % 2) == 1; 
   bool autoActivated = (currentMode & 0b00000100) == 0b00000100;
 
   if (isShooting) {
@@ -228,24 +224,18 @@ void loop() {
       leds[i] = BlueAlliance;
       // (!enabled);
     }
-  }
+  } 
   else {
     for (int i = 0; i < NUM_LEDS; i++) {
       leds[i] = Enabled;
     }
-  }
-  FastLED.show();
-
+  }  
  // theGlitter.Draw();
 
 
   EVERY_N_MILLISECONDS(50) {
     // theGlitter.Update();
     theBreathing.update();
-
-    // theBreathing.update();
-    breathingEnabled = false;
-
     // currentMode = AUTO ;
     while (Serial.available() > 0) {
       // read the incoming byte:
@@ -263,9 +253,4 @@ void loop() {
     }
     FastLED.show();
   }
-
 }
-
-
-}
-
