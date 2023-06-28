@@ -14,6 +14,7 @@
 
 uint8_t hue = 0;
 uint8_t currentMode = 0x00;
+bool breathingEnabled;
 CRGB leds[NUM_LEDS];
 CRGB Black = CRGB(0, 0, 0);
 CRGB RedAlliance = CRGB(200, 0, 0);
@@ -110,8 +111,7 @@ class breathe {
   
 
     void update() {
-
-      FastLED.show();
+      // FastLED.show();
       if (lineOne <= lineOneToGo && lineTwo >= lineTwoToGo) {
         state = true;
       } 
@@ -120,19 +120,34 @@ class breathe {
       }
 
       if (state) {
+        lineOne = lineOneToGo
+        for (int i  = lineOne; i > lineOneToGo; i++) {
+          leds[i] = Enabled;
+        }
+        for (int j = lineTwo; j < lineTwoToGo; j--) {
+          leds[j] = Enabled;
+        }
         leds[lineOne] = Enabled;
         leds[lineTwo] = Enabled; 
         lineOne++;
         lineTwo--;
+        FastLED.show();
       }
       else {
+        for (int i = middle_led; i > lineOne; i--) {
+          leds[i] = Black;
+        }
+        for (int j = middle_led; j < lineTwo; j++) {
+          leds[j] = Black;
+        } 
         leds[lineOne] = Black; // fix, custom 
         leds[lineTwo] = Black; 
         lineOne--;
         lineTwo++;
+        FastLED.show();
+
       }
-    
-}
+    }
 
       // only use effected_Leds\
       / start from middle
@@ -141,7 +156,7 @@ class breathe {
 
 };
 
-breathe theBreathing (leds, 47, 20, 0.8);
+breathe theBreathing (leds, NUM_LEDS, 31, 0.8);
 
 
 // class breathe {
@@ -167,7 +182,7 @@ void setup() {
   FastLED.addLeds<CHIPSET, LED_PIN, COLOR_ORDER>(leds, NUM_LEDS);
   FastLED.setBrightness(BRIGHTNESS);
   FastLED.clear();
-  FastLED.show();
+  // FastLED.show();
 
   Serial.begin(9600);
   Serial.setTimeout(0);
@@ -202,7 +217,7 @@ void loop() {
   }
     else if (!enabled) {
     for (int i = 0; i < NUM_LEDS; i++) {
-      Serial.println("a");
+      // Serial.println("a");
       leds[i] = Enabled;
     }
   } else if (redAlliance) {  //red = 1 = 2 to the power of 1
@@ -220,14 +235,19 @@ void loop() {
       leds[i] = Enabled;
     }
   }
+  if (breathingEnabled == true) {
+  }
+  else {
   FastLED.show();
+  }
   
  // theGlitter.Draw();
 
 
   EVERY_N_MILLISECONDS(50) {
     // theGlitter.Update();
-    //theBreathing.update();
+    // theBreathing.update();
+    breathingEnabled = false;
     // currentMode = AUTO ;
     while (Serial.available() > 0) {
       // read the incoming byte:
@@ -243,7 +263,7 @@ void loop() {
       // }
       // }
     }
-    FastLED.show();
+    // FastLED.show();
   }
 }
 
