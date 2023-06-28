@@ -83,14 +83,14 @@ class breathe {
     int num_leds;
     int effected_leds;
     float fadeValue;
-    int iToGo;
-    int jToGo;
+    int lineOneToGo;
+    int lineTwoToGo;
     int effectedPerSide;
     int middle_led;
     int changed_leds;
     bool state;
-    int i;
-    int j;
+    int lineOne;
+    int lineTwo;
 
   public:
     breathe(CRGB* l, int num_leds, int effected_leds, float fadeValue) {
@@ -98,39 +98,38 @@ class breathe {
       this->num_leds = num_leds;
       this->effected_leds = effected_leds;
       this->fadeValue = fadeValue;
-      effectedPerSide = effected_leds/2;
+      effectedPerSide = floor(effected_leds/2);
       middle_led = floor(num_leds/2);
       changed_leds = middle_led-effected_leds;
-      iToGo = changed_leds;
-      jToGo = middle_led + effected_leds;
+      lineOneToGo = changed_leds;
+      lineTwoToGo = middle_led + effected_leds;
       state = true; 
-      i = middle_led;
-      j = middle_led;
+      lineOne = middle_led;
+      lineTwo = middle_led;
     }
   
 
     void update() {
 
       FastLED.show();
-      if (i >= iToGo) {
-        // i turns to --, j turns to --
-        state = false;
-      } 
-      if (i <= middle_led) { // add j {
+      if (lineOne <= lineOneToGo && lineTwo >= lineTwoToGo) {
         state = true;
+      } 
+      if (lineOne >= middle_led && lineTwo <= middle_led) { 
+        state = false; 
       }
 
       if (state) {
-        leds[i] = Black;
-        leds[j] = Black; 
-        i++;
-        j--;
+        leds[lineOne] = Black;
+        leds[lineTwo] = Black; 
+        lineOne++;
+        lineTwo--;
       }
       else {
-        leds[i] = Enabled; // fix, custom 
-        leds[j] = Enabled; 
-        i--;
-        j++;
+        leds[lineOne] = Enabled; // fix, custom 
+        leds[lineTwo] = Enabled; 
+        lineOne--;
+        lineTwo++;
       }
     
 }
