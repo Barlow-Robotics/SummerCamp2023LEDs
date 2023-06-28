@@ -149,11 +149,42 @@ Glitter theGlitter(leds, 47, 20, 0.8);
       }
     }
 
-      // go back; slow down as you reach the end
+//     void update() {
 
-};
+//       FastLED.show();
+//       if (lineOne <= lineOneToGo && lineTwo >= lineTwoToGo) {
+//         state = true;
+//       } 
+//       if (lineOne >= middle_led && lineTwo <= middle_led) { 
+//         state = false; 
+//       }
+
+//       if (state) {
+//         leds[lineOne] = Enabled;
+//         leds[lineTwo] = Enabled; 
+//         lineOne++;
+//         lineTwo--;
+//       }
+//       else {
+//         leds[lineOne] = Black; // fix, custom 
+//         leds[lineTwo] = Black; 
+//         lineOne--;
+//         lineTwo++;
+//       }
+    
+// }
+
+
+//       // only use effected_Leds\
+//       / start from middle
+//       // extend
+//       // go back; slow down as you reach the end
+
+// };
+
 
 breathe theBreathing (leds, NUM_LEDS, 31, 0.8);
+// breathe theBreathing (leds, 47, 20, 0.8);
 
 
 // class breathe {
