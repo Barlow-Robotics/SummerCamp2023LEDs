@@ -112,11 +112,11 @@ class breathe {
     void update() {
 
       FastLED.show();
-      if (i <= iToGo) {
+      if (i >= iToGo) {
         // i turns to --, j turns to --
         state = false;
       } 
-      if (i >= middle_led) { // add j {
+      if (i <= middle_led) { // add j {
         state = true;
       }
 
