@@ -227,7 +227,7 @@ void loop() {
 
   EVERY_N_MILLISECONDS(50) {
     // theGlitter.Update();
-    //theBreathing.update();
+    theBreathing.update();
     // currentMode = AUTO ;
     while (Serial.available() > 0) {
       // read the incoming byte:
@@ -246,4 +246,3 @@ void loop() {
     FastLED.show();
   }
 }
-
