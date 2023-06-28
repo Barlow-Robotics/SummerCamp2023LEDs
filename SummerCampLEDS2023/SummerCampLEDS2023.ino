@@ -20,7 +20,7 @@ CRGB Black = CRGB(0, 0, 0);
 CRGB RedAlliance = CRGB(200, 0, 0);
 CRGB BlueAlliance = CRGB(0, 0, 255);
 CRGB Shooting = CRGB(100, 0, 100);
-CRGB Auto = CRGB(100, 200, 100);
+CRGB Auto = CRGB(0, 200, 100);
 CRGB Enabled = CRGB(0, 255, 15);
 
 
@@ -60,7 +60,7 @@ public:
 
       if (glitterStatus[i].value < 4) {
         uint16_t led_num = random16(num_leds);
-        uint8_t brightness = random8(255);
+        uint8_t brightness = random8(200);
         glitterStatus[i].index = led_num;
         glitterStatus[i].value = brightness;
       }
@@ -78,36 +78,36 @@ public:
 Glitter theGlitter(leds, 47, 20, 0.8);
 
 
-class breathe {
-  private:
-    CRGB* leds;
-    int num_leds;
-    int effected_leds;
-    float fadeValue;
-    int lineOneToGo;
-    int lineTwoToGo;
-    int effectedPerSide;
-    int middle_led;
-    int changed_leds;
-    bool state;
-    int lineOne;
-    int lineTwo;
+// class breathe {
+//   private:
+//     CRGB* leds;
+//     int num_leds;
+//     int effected_leds;
+//     float fadeValue;
+//     int lineOneToGo;
+//     int lineTwoToGo;
+//     int effectedPerSide;
+//     int middle_led;
+//     int changed_leds;
+//     bool state;
+//     int lineOne;
+//     int lineTwo;
 
-  public:
-    breathe(CRGB* l, int num_leds, int effected_leds, float fadeValue) {
-      this->leds = l;
-      this->num_leds = num_leds;
-      this->effected_leds = effected_leds;
-      this->fadeValue = fadeValue;
-      effectedPerSide = floor(effected_leds/2);
-      middle_led = floor(num_leds/2);
-      changed_leds = middle_led-effected_leds;
-      lineOneToGo = changed_leds;
-      lineTwoToGo = middle_led + effected_leds;
-      state = true; 
-      lineOne = middle_led;
-      lineTwo = middle_led;
-    }
+//   public:
+//     breathe(CRGB* l, int num_leds, int effected_leds, float fadeValue) {
+//       this->leds = l;
+//       this->num_leds = num_leds;
+//       this->effected_leds = effected_leds;
+//       this->fadeValue = fadeValue;
+//       effectedPerSide = floor(effected_leds/2);
+//       middle_led = floor(num_leds/2);
+//       changed_leds = middle_led-effected_leds;
+//       lineOneToGo = changed_leds;
+//       lineTwoToGo = middle_led + effected_leds;
+//       state = true; 
+//       lineOne = middle_led;
+//       lineTwo = middle_led;
+//     }
   
 
     void update() {
@@ -149,9 +149,6 @@ class breathe {
       }
     }
 
-      // only use effected_Leds\
-      / start from middle
-      // extend
       // go back; slow down as you reach the end
 
 };
@@ -249,6 +246,7 @@ void loop() {
     // theBreathing.update();
     breathingEnabled = false;
     theBreathing.update();
+   // theBreathing.update();
     // currentMode = AUTO ;
     while (Serial.available() > 0) {
       // read the incoming byte:
