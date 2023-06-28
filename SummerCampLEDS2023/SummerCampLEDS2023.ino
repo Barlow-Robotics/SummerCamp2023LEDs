@@ -77,65 +77,72 @@ public:
 Glitter theGlitter(leds, 47, 20, 0.8);
 
 
-// class breathe {
-//   private:
-//     CRGB* leds;
-//     int num_leds;
-//     int effected_leds;
-//     float fadeValue;
-//     int i;
-//     int j;
-//     int effectedPerSide;
-//     int middle_led;
-//     int changed_leds;
-//     bool state;
+class breathe {
+  private:
+    CRGB* leds;
+    int num_leds;
+    int effected_leds;
+    float fadeValue;
+    int iToGo;
+    int jToGo;
+    int effectedPerSide;
+    int middle_led;
+    int changed_leds;
+    bool state;
+    int i;
+    int j;
 
-//   public:
-//     breathe(CRGB* l, int num_leds, int effected_leds, float fadeValue) {
-//       this->leds = l;
-//       this->num_leds = num_leds;
-//       this->effected_leds = effected_leds;
-//       this->fadeValue = fadeValue;
-//       effectedPerSide = effected_leds/2;
-//       middle_led = floor(num_leds/2);
-//       changed_leds = middle_led-effected_leds;
-//       i = changed_leds;
-//       j = middle_led + effected_leds;
-//       state = true; 
-//     }
+  public:
+    breathe(CRGB* l, int num_leds, int effected_leds, float fadeValue) {
+      this->leds = l;
+      this->num_leds = num_leds;
+      this->effected_leds = effected_leds;
+      this->fadeValue = fadeValue;
+      effectedPerSide = effected_leds/2;
+      middle_led = floor(num_leds/2);
+      changed_leds = middle_led-effected_leds;
+      iToGo = changed_leds;
+      jToGo = middle_led + effected_leds;
+      state = true; 
+      i = middle_led;
+      j = middle_led;
+    }
   
 
-//     void update() {
-//       leds[i] = Black;
-//       leds[j] = Black; 
-//       FastLED.show();
-//       if (i < middle_led) {
-//         // i turns to --, j turns to --
-//         state = false;
-//       } 
-//       if (i < changed_leds) { // add j {
-//         state = true;
-//       }
+    void update() {
 
-//       if (state) {
-//         i++;
-//         j++;
-//       }
-//       else {
-//         i--;
-//         j--;
-//       }
+      FastLED.show();
+      if (i <= iToGo) {
+        // i turns to --, j turns to --
+        state = false;
+      } 
+      if (i >= middle_led) { // add j {
+        state = true;
+      }
+
+      if (state) {
+        leds[i] = Black;
+        leds[j] = Black; 
+        i++;
+        j--;
+      }
+      else {
+        leds[i] = Enabled; // fix, custom 
+        leds[j] = Enabled; 
+        i--;
+        j++;
+      }
     
-// }
+}
 
-//       // only use effected_Leds\
-//       / start from middle
-//       // extend
-//       // go back; slow down as you reach the end
+      // only use effected_Leds\
+      / start from middle
+      // extend
+      // go back; slow down as you reach the end
 
-// };
+};
 
-// breathe theBreathing (leds, 47, 20, 0.8);
+breathe theBreathing (leds, 47, 20, 0.8);
 
 
 // class breathe {
