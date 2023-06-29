@@ -19,6 +19,8 @@ CRGB BlueAlliance = CRGB(0, 0, 255);
 CRGB Shooting = CRGB(100, 0, 100);
 CRGB Auto = CRGB(100, 200, 100);
 CRGB Enabled = CRGB(0, 255, 15);
+CRGB GlitterColor = CRGB(0, 0, 0);
+
 class Glitter {
 private:
   CRGB* leds;
@@ -57,11 +59,12 @@ public:
   void Draw() {
     for (int i = 0; i < num_glitters; i++) {
       uint8_t value = glitterStatus[i].value;
-      leds[glitterStatus[i].index] = CRGB(value, value, value);
+     // value--;
+      leds[glitterStatus[i].index] = CRGB(value,value,value);
     }
   }
 };
-Glitter theGlitter(leds, 47, 20, 0.8);
+Glitter theGlitter(leds, NUM_LEDS, 20, 0.8);
 class breathe {
   private:
     CRGB* leds;
@@ -183,24 +186,28 @@ void loop() {
       Serial.println("a");
       leds[i] = Enabled;
     }
-  } else if (redAlliance) {  //red = 1 = 2 to the power of 1
+  } else if (redAlliance) {  
+    GlitterColor = RedAlliance;
+    //red = 1 = 2 to the power of 1
     for (int i = 0; i < NUM_LEDS; i++) {
       leds[i] = RedAlliance;
     }
-  } else if (blueAlliance) {  //blue = 0
+  } else if (blueAlliance) {
+    GlitterColor = BlueAlliance;
+      //blue = 0
     for (int i = 0; i < NUM_LEDS; i++) {
       leds[i] = BlueAlliance;
       // (!enabled);
     }
   } 
-  else {
-    for (int i = 0; i < NUM_LEDS; i++) {
-      leds[i] = Enabled;
-    }
-  }  
- // theGlitter.Draw();
+  // else {
+  //   for (int i = 0; i < NUM_LEDS; i++) {
+  //     leds[i] = Enabled;
+  //   }
+  //}  
+ theGlitter.Draw();
   EVERY_N_MILLISECONDS(50) {
-    // theGlitter.Update();
+     theGlitter.Update();
     theBreathing.update();
     // currentMode = AUTO ;
     while (Serial.available() > 0) {
